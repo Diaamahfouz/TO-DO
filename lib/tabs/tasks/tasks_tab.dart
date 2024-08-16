@@ -1,34 +1,39 @@
 import 'package:flutter/material.dart';
-import 'package:todo/models/task_model.dart';
+import 'package:provider/provider.dart';
+import 'package:todo/app_theme.dart';
+import 'package:todo/tabs/settings/settings_provider.dart';
 import 'package:todo/tabs/tasks/task_item.dart';
 import 'package:easy_date_timeline/easy_date_timeline.dart';
+import 'package:todo/tabs/tasks/tasks_provider.dart';
 
 class TasksTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    List<TaskModel> tasks = List.generate(
-      12,
-      (index) => TaskModel(
-        title: 'task# ${index + 1} title',
-        description: 'task# ${index + 1} description',
-        date: DateTime.now(),
+    TasksProvider tasksProvider = Provider.of<TasksProvider>(context);
+    SettingsProvider settingsProvider = Provider.of(context);
+
+    return Column(children: [
+      SizedBox(
+        height: 15,
       ),
-    );
-    return SafeArea(
-      child: Column(children: [
-        EasyInfiniteDateTimeLine(
-          firstDate: DateTime.now().subtract(Duration(days: 365)),
-          focusDate: DateTime.now(),
-          lastDate: DateTime.now().add(Duration(days: 365)),
-          showTimelineHeader: false,
-        ),
-        Expanded(
-            child: ListView.builder(
-          padding: EdgeInsets.only(top: 20),
-          itemBuilder: (_, index) => TaskItem(tasks[index]),
-          itemCount: tasks.length,
-        ))
-      ]),
-    );
+      EasyInfiniteDateTimeLine(
+        firstDate: DateTime.now().subtract(Duration(days: 365)),
+        focusDate: tasksProvider.selectedDate,
+        activeColor:
+            settingsProvider.isDark ? AppTheme.primary : AppTheme.primary,
+        lastDate: DateTime.now().add(Duration(days: 365)),
+        showTimelineHeader: false,
+        onDateChange: (selectedDate) {
+          tasksProvider.changeSelecteDate(selectedDate);
+          tasksProvider.getTasks();
+        },
+      ),
+      Expanded(
+          child: ListView.builder(
+        padding: EdgeInsets.only(top: 20),
+        itemBuilder: (_, index) => TaskItem(tasksProvider.tasks[index]),
+        itemCount: tasksProvider.tasks.length,
+      ))
+    ]);
   }
 }

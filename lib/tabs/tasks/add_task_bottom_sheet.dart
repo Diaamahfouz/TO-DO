@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
+import 'package:todo/app_theme.dart';
+import 'package:todo/models/task_model.dart';
+import 'package:todo/tabs/settings/settings_provider.dart';
 import 'package:todo/tabs/tasks/default_elevated_button.dart';
 import 'package:todo/tabs/tasks/default_text_form_field.dart';
+import 'package:todo/tabs/tasks/firebase_functions.dart';
+import 'package:todo/tabs/tasks/tasks_provider.dart';
 
 class AddTaskBottomSheet extends StatefulWidget {
   @override
@@ -19,7 +25,11 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
   Widget build(BuildContext context) {
     ThemeData theme = Theme.of(context);
     TextStyle? titleMediumStyle = Theme.of(context).textTheme.titleMedium;
+    SettingsProvider settingsProvider = Provider.of(context);
     return Container(
+      color: SettingsProvider.themeMode == ThemeMode.light
+          ? AppTheme.white
+          : AppTheme.backGroundDark,
       padding: EdgeInsets.all(20),
       height: MediaQuery.of(context).size.height * 0.55,
       child: Form(
@@ -104,6 +114,22 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
   }
 
   void addTask() {
-    print('task added');
+    FirebaseFunctions.addTaskToFireStore(
+      TaskModel(
+        title: titleController.text,
+        description: descriptionController.text,
+        date: selectedDate,
+      ),
+    ).timeout(
+      Duration(microseconds: 500),
+      onTimeout: () {
+        Navigator.of(context).pop();
+        Provider.of<TasksProvider>(context, listen: false).getTasks();
+        print('task added');
+      },
+    ).catchError((error) {
+      print('Error');
+      print(error);
+    });
   }
 }

@@ -20,7 +20,17 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    TextStyle? titleMediumStyle = Theme.of(context).textTheme.titleMedium;
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: AppTheme.primary,
+        centerTitle: true,
+        title: Text(
+          'TO DO List',
+          style: titleMediumStyle?.copyWith(
+              fontSize: 32, fontWeight: FontWeight.bold),
+        ),
+      ),
       body: tabs[currentTabIndex],
       bottomNavigationBar: BottomAppBar(
         shape: CircularNotchedRectangle(),
