@@ -9,26 +9,32 @@ class SettingsTab extends StatelessWidget {
     SettingsProvider settingsProvider = Provider.of<SettingsProvider>(context);
     TextStyle? titleMediumStyle = Theme.of(context).textTheme.titleMedium;
     return SafeArea(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
-        child: Column(
-          children: [
-            SizedBox(
-              height: 10,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  'Settings',
-                  style: titleMediumStyle?.copyWith(fontSize: 30),
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 35,
-            ),
-            Row(
+      child: Column(
+        children: [
+          Stack(
+            children: [
+              Container(
+                color: AppTheme.primary,
+                width: double.infinity,
+                height: MediaQuery.of(context).size.height * 0.06,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'Settings',
+                    style: titleMediumStyle?.copyWith(fontSize: 30),
+                  ),
+                ],
+              ),
+            ],
+          ),
+          SizedBox(
+            height: 35,
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
@@ -45,9 +51,9 @@ class SettingsTab extends StatelessWidget {
                   inactiveTrackColor: AppTheme.grey,
                 )
               ],
-            )
-          ],
-        ),
+            ),
+          )
+        ],
       ),
     );
   }

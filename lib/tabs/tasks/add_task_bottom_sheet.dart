@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:todo/app_theme.dart';
@@ -125,11 +126,24 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
       onTimeout: () {
         Navigator.of(context).pop();
         Provider.of<TasksProvider>(context, listen: false).getTasks();
-        print('task added');
+        Fluttertoast.showToast(
+            msg: "Task Added Successfully",
+            toastLength: Toast.LENGTH_LONG,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 5,
+            backgroundColor: AppTheme.green,
+            textColor: AppTheme.white,
+            fontSize: 16.0);
       },
     ).catchError((error) {
-      print('Error');
-      print(error);
+      Fluttertoast.showToast(
+          msg: "Something Went Wrong!",
+          toastLength: Toast.LENGTH_LONG,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 5,
+          backgroundColor: AppTheme.red,
+          textColor: Colors.white,
+          fontSize: 16.0);
     });
   }
 }

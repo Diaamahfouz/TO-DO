@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:todo/app_theme.dart';
+import 'package:todo/tabs/settings/settings_provider.dart';
 import 'package:todo/tabs/settings/settings_tab.dart';
 import 'package:todo/tabs/tasks/add_task_bottom_sheet.dart';
 import 'package:todo/tabs/tasks/tasks_tab.dart';
@@ -21,15 +23,26 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     TextStyle? titleMediumStyle = Theme.of(context).textTheme.titleMedium;
+    SettingsProvider settingsProvider = Provider.of(context);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppTheme.primary,
         centerTitle: true,
         title: Text(
           'TO DO List',
-          style: titleMediumStyle?.copyWith(
-              fontSize: 32, fontWeight: FontWeight.bold),
+          style: settingsProvider.isDark
+              ? titleMediumStyle?.copyWith(
+                  fontSize: 32,
+                  fontWeight: FontWeight.bold,
+                  color: AppTheme.black,
+                )
+              : titleMediumStyle?.copyWith(
+                  fontSize: 32,
+                  fontWeight: FontWeight.bold,
+                  color: AppTheme.white,
+                ),
         ),
+        elevation: 0,
       ),
       body: tabs[currentTabIndex],
       bottomNavigationBar: BottomAppBar(
