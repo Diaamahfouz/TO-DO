@@ -5,7 +5,7 @@ class TaskModel {
   String title;
   String description;
   DateTime date;
-  bool isDone;
+  bool isDone=false;
 
   TaskModel({
     this.id = '',

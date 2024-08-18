@@ -5,14 +5,13 @@ import 'package:provider/provider.dart';
 import 'package:todo/app_theme.dart';
 import 'package:todo/home_screen.dart';
 import 'package:todo/tabs/settings/settings_provider.dart';
+import 'package:todo/tabs/tasks/edit_task_screen.dart';
 import 'package:todo/tabs/tasks/tasks_provider.dart';
 
 Future<void> main() async {
-
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   await FirebaseFirestore.instance.disableNetwork();
-
 
   FirebaseFirestore.instance.settings =
       Settings(cacheSizeBytes: Settings.CACHE_SIZE_UNLIMITED);
@@ -39,9 +38,11 @@ class TodoApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       routes: {
         HomeScreen.routename: (_) => HomeScreen(),
+        EditTaskScreen.routename: (_) => EditTaskScreen(),
       },
-      theme: SettingsProvider.themeMode == ThemeMode.dark ?AppTheme.darkTheme : AppTheme.lighTheme,
-      
+      theme: SettingsProvider.themeMode == ThemeMode.dark
+          ? AppTheme.darkTheme
+          : AppTheme.lighTheme,
     );
   }
 }

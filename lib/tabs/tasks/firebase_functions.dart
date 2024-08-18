@@ -16,6 +16,21 @@ class FirebaseFunctions {
     return docRef.set(task);
   }
 
+  static Future<void> editTaskToFireStore(TaskModel task) async {
+    // CollectionReference<TaskModel> tasksCollection = getTasksCollection();
+    // DocumentReference<TaskModel> docRef = tasksCollection.doc(task.id);
+    // return docRef.update(task.toJson());
+    // return tasksCollection.doc(task.id).update(task.toJson());
+    try {
+      CollectionReference tasksCollection =
+          FirebaseFirestore.instance.collection('tasks');
+      DocumentReference taskSoc = tasksCollection.doc(task.id);
+      await taskSoc.update(task.toJson());
+    } catch (e) {
+      print('error$e');
+    }
+  }
+
   static Future<List<TaskModel>> getAllTasksFromFirestore() async {
     CollectionReference<TaskModel> tasksCollection = getTasksCollection();
     QuerySnapshot<TaskModel> querySnapshot = await tasksCollection.get();

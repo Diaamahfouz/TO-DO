@@ -31,7 +31,7 @@ class _HomeScreenState extends State<HomeScreen> {
         title: Text(
           'TO DO List',
           style: settingsProvider.isDark
-              ? titleMediumStyle?.copyWith(
+              ? titleMediumStyle?.copyWith(         
                   fontSize: 32,
                   fontWeight: FontWeight.bold,
                   color: AppTheme.black,
