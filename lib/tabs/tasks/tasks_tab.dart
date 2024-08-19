@@ -8,6 +8,8 @@ import 'package:easy_date_timeline/easy_date_timeline.dart';
 import 'package:todo/tabs/tasks/tasks_provider.dart';
 
 class TasksTab extends StatelessWidget {
+  const TasksTab({super.key});
+
   @override
   Widget build(BuildContext context) {
     TasksProvider tasksProvider = Provider.of<TasksProvider>(context);
@@ -22,11 +24,11 @@ class TasksTab extends StatelessWidget {
             height: MediaQuery.of(context).size.height * 0.06,
           ),
           EasyInfiniteDateTimeLine(
-            firstDate: DateTime.now().subtract(Duration(days: 365)),
+            firstDate: DateTime.now().subtract(const Duration(days: 365)),
             focusDate: tasksProvider.selectedDate,
             activeColor:
                 settingsProvider.isDark ? AppTheme.white : AppTheme.white,
-            lastDate: DateTime.now().add(Duration(days: 365)),
+            lastDate: DateTime.now().add(const Duration(days: 365)),
             showTimelineHeader: false,
             onDateChange: (selectedDate) {
               tasksProvider.changeSelecteDate(selectedDate);
@@ -101,7 +103,7 @@ class TasksTab extends StatelessWidget {
       ),
       Expanded(
           child: ListView.builder(
-        padding: EdgeInsets.only(top: 20),
+        padding: const EdgeInsets.only(top: 20),
         itemBuilder: (_, index) => TaskItem(tasksProvider.tasks[index]),
         itemCount: tasksProvider.tasks.length,
       ))

@@ -13,6 +13,8 @@ import 'package:todo/tabs/tasks/tasks_provider.dart';
 class EditTaskScreen extends StatefulWidget {
   static const String routename = '/editTAskScreen';
 
+  const EditTaskScreen({super.key});
+
   @override
   State<EditTaskScreen> createState() => _EditTaskScreenState();
 }
@@ -23,14 +25,18 @@ class _EditTaskScreenState extends State<EditTaskScreen> {
   DateTime selectedDate = DateTime.now();
   DateFormat dateFormat = DateFormat('dd/MM/yyyy');
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  TaskModel? task;
   @override
   Widget build(BuildContext context) {
     TextStyle? titleMediumStyle = Theme.of(context).textTheme.titleMedium;
     SettingsProvider settingsProvider = Provider.of(context);
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppTheme.primary,
         centerTitle: true,
+        iconTheme: IconThemeData(
+            color: settingsProvider.isDark ? AppTheme.black : AppTheme.white),
         title: Text(
           'TO DO List',
           style: settingsProvider.isDark
@@ -55,7 +61,7 @@ class _EditTaskScreenState extends State<EditTaskScreen> {
             height: MediaQuery.of(context).size.height * 0.06,
           ),
           Container(
-            margin: EdgeInsets.symmetric(horizontal: 30, vertical: 8),
+            margin: const EdgeInsets.symmetric(horizontal: 30, vertical: 8),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
               color: settingsProvider.isDark ? AppTheme.black : AppTheme.white,
@@ -67,14 +73,14 @@ class _EditTaskScreenState extends State<EditTaskScreen> {
                 padding: const EdgeInsets.all(15.0),
                 child: Column(
                   children: [
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     Text(
                       'Edit Task',
                       style: titleMediumStyle,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     DefaultTextFormField(
@@ -88,7 +94,7 @@ class _EditTaskScreenState extends State<EditTaskScreen> {
                         return null;
                       },
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     DefaultTextFormField(
@@ -102,14 +108,14 @@ class _EditTaskScreenState extends State<EditTaskScreen> {
                         return null;
                       },
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 35,
                     ),
                     Text(
                       'Select Date',
                       style: titleMediumStyle,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 8,
                     ),
                     InkWell(
@@ -117,7 +123,8 @@ class _EditTaskScreenState extends State<EditTaskScreen> {
                         DateTime? dateTime = await showDatePicker(
                           context: context,
                           firstDate: DateTime.now(),
-                          lastDate: DateTime.now().add(Duration(days: 365)),
+                          lastDate:
+                              DateTime.now().add(const Duration(days: 365)),
                           initialDate: selectedDate,
                           initialEntryMode: DatePickerEntryMode.calendarOnly,
                         );
@@ -132,7 +139,7 @@ class _EditTaskScreenState extends State<EditTaskScreen> {
                             fontWeight: FontWeight.w500),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 70,
                     ),
                     DefaultElevatedButton(
@@ -158,14 +165,15 @@ class _EditTaskScreenState extends State<EditTaskScreen> {
         title: titleController.text,
         description: descriptionController.text,
         date: selectedDate,
+        id: task!.id,
       ),
     ).timeout(
-      Duration(microseconds: 500),
+      const Duration(microseconds: 500),
       onTimeout: () {
         Navigator.of(context).pop();
         Provider.of<TasksProvider>(context, listen: false).getTasks();
         Fluttertoast.showToast(
-            msg: "Task Added Successfully",
+            msg: "Task Edited Successfully",
             toastLength: Toast.LENGTH_LONG,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 5,

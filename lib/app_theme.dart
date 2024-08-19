@@ -11,52 +11,62 @@ class AppTheme {
   static const Color red = Color(0xffEC4B4B);
 
   static ThemeData lighTheme = ThemeData(
-      primaryColor: primary,
-      scaffoldBackgroundColor: backGroundLight,
-      bottomNavigationBarTheme: BottomNavigationBarThemeData(
-          type: BottomNavigationBarType.fixed,
-          backgroundColor: white,
-          selectedItemColor: primary,
-          unselectedItemColor: grey,
-          showSelectedLabels: false,
-          showUnselectedLabels: false,
-          elevation: 0),
-      floatingActionButtonTheme: FloatingActionButtonThemeData(
-        backgroundColor: primary,
-        foregroundColor: white,
-        shape: CircleBorder(
-            side: BorderSide(
-          color: white,
-          width: 4,
-        )),
+    primaryColor: primary,
+    scaffoldBackgroundColor: backGroundLight,
+    bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+      type: BottomNavigationBarType.fixed,
+      backgroundColor: white,
+      selectedItemColor: primary,
+      unselectedItemColor: grey,
+      showSelectedLabels: false,
+      showUnselectedLabels: false,
+      elevation: 0,
+    ),
+    floatingActionButtonTheme: const FloatingActionButtonThemeData(
+      backgroundColor: primary,
+      foregroundColor: white,
+      shape: CircleBorder(
+          side: BorderSide(
+        color: white,
+        width: 4,
+      )),
+    ),
+    textTheme: const TextTheme(
+      titleMedium: TextStyle(
+        fontSize: 18,
+        fontWeight: FontWeight.bold,
+        color: black,
       ),
-      textTheme: TextTheme(
-        titleMedium: TextStyle(
-          fontSize: 18,
-          fontWeight: FontWeight.bold,
-          color: black,
-        ),
-        titleSmall: TextStyle(
-          fontSize: 14,
-          fontWeight: FontWeight.w400,
-          color: black,
-        ),
+      titleSmall: TextStyle(
+        fontSize: 14,
+        fontWeight: FontWeight.w400,
+        color: black,
       ),
-      elevatedButtonTheme: ElevatedButtonThemeData(
-          style: ElevatedButton.styleFrom(backgroundColor: primary)));
+    ),
+    elevatedButtonTheme: ElevatedButtonThemeData(
+      style: ElevatedButton.styleFrom(backgroundColor: primary),
+    ),
+    switchTheme: const SwitchThemeData(
+      thumbColor: WidgetStatePropertyAll(white),
+    ),
+    textButtonTheme: TextButtonThemeData(
+      style: TextButton.styleFrom(foregroundColor: primary),
+    ),
+  );
 
   static ThemeData darkTheme = ThemeData(
     primaryColor: primary,
     scaffoldBackgroundColor: backGroundDark,
-    bottomNavigationBarTheme: BottomNavigationBarThemeData(
-        type: BottomNavigationBarType.fixed,
-        backgroundColor: black,
-        selectedItemColor: primary,
-        unselectedItemColor: grey,
-        showSelectedLabels: false,
-        showUnselectedLabels: false,
-        elevation: 0),
-    floatingActionButtonTheme: FloatingActionButtonThemeData(
+    bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+      type: BottomNavigationBarType.fixed,
+      backgroundColor: black,
+      selectedItemColor: primary,
+      unselectedItemColor: grey,
+      showSelectedLabels: false,
+      showUnselectedLabels: false,
+      elevation: 0,
+    ),
+    floatingActionButtonTheme: const FloatingActionButtonThemeData(
       backgroundColor: primary,
       foregroundColor: white,
       shape: CircleBorder(
@@ -65,7 +75,7 @@ class AppTheme {
         width: 4,
       )),
     ),
-    textTheme: TextTheme(
+    textTheme: const TextTheme(
       titleMedium: TextStyle(
         fontSize: 18,
         fontWeight: FontWeight.bold,
@@ -80,9 +90,11 @@ class AppTheme {
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(backgroundColor: primary),
     ),
-    switchTheme: SwitchThemeData(
+    switchTheme: const SwitchThemeData(
       thumbColor: WidgetStatePropertyAll(white),
-      
-    )
+    ),
+    textButtonTheme: TextButtonThemeData(
+      style: TextButton.styleFrom(foregroundColor: primary),
+    ),
   );
 }

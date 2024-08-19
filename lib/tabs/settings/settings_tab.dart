@@ -4,10 +4,12 @@ import 'package:todo/app_theme.dart';
 import 'package:todo/tabs/settings/settings_provider.dart';
 
 class SettingsTab extends StatelessWidget {
+  const SettingsTab({super.key});
+
   @override
   Widget build(BuildContext context) {
     SettingsProvider settingsProvider = Provider.of<SettingsProvider>(context);
-    TextStyle? titleMediumStyle = Theme.of(context).textTheme.titleMedium;
+    
     return SafeArea(
       child: Column(
         children: [
@@ -23,13 +25,19 @@ class SettingsTab extends StatelessWidget {
                 children: [
                   Text(
                     'Settings',
-                    style: titleMediumStyle?.copyWith(fontSize: 30),
+                    style: TextStyle(
+                      color: settingsProvider.isDark
+                          ? AppTheme.white
+                          : AppTheme.black,
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ],
               ),
             ],
           ),
-          SizedBox(
+          const SizedBox(
             height: 35,
           ),
           Padding(
@@ -39,12 +47,18 @@ class SettingsTab extends StatelessWidget {
               children: [
                 Text(
                   'Dark Mode',
-                  style: titleMediumStyle?.copyWith(fontSize: 24),
+                  style: TextStyle(
+                    color: settingsProvider.isDark
+                        ? AppTheme.white
+                        : AppTheme.black,
+                    fontSize: 28,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
                 Switch(
                   value: settingsProvider.isDark,
-                  onChanged: (isDark) {
-                    settingsProvider.changeThemeMode(
+                  onChanged: (isDark)async {
+                 await   settingsProvider.changeThemeMode(
                         isDark ? ThemeMode.dark : ThemeMode.light);
                   },
                   activeTrackColor: AppTheme.green,

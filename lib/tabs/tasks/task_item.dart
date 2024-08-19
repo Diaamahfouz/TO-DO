@@ -10,8 +10,8 @@ import 'package:todo/tabs/tasks/firebase_functions.dart';
 import 'package:todo/tabs/tasks/tasks_provider.dart';
 
 class TaskItem extends StatefulWidget {
-  TaskItem(this.task);
-  TaskModel task;
+  const TaskItem(this.task, {super.key});
+  final TaskModel task;
 
   @override
   State<TaskItem> createState() => _TaskItemState();
@@ -24,7 +24,7 @@ class _TaskItemState extends State<TaskItem> {
 
     ThemeData theme = Theme.of(context);
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 8, horizontal: 20),
+      margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 20),
       child: Slidable(
         key: const ValueKey(0),
         startActionPane: ActionPane(
@@ -35,7 +35,7 @@ class _TaskItemState extends State<TaskItem> {
               onPressed: (context) {
                 FirebaseFunctions.deleteTaskFromFirestore(widget.task.id)
                     .timeout(
-                  Duration(microseconds: 500),
+                  const Duration(microseconds: 500),
                   onTimeout: () {
                     Provider.of<TasksProvider>(context, listen: false)
                         .getTasks();
@@ -71,7 +71,7 @@ class _TaskItemState extends State<TaskItem> {
             setState(() {});
           },
           child: Container(
-            padding: EdgeInsets.all(20),
+            padding: const EdgeInsets.all(20),
             decoration: BoxDecoration(
               color: settingsProvider.isDark ? AppTheme.black : AppTheme.white,
               borderRadius: BorderRadius.circular(15),
@@ -82,7 +82,7 @@ class _TaskItemState extends State<TaskItem> {
                   height: 62,
                   width: 4,
                   color: theme.primaryColor,
-                  margin: EdgeInsetsDirectional.only(end: 12),
+                  margin: const EdgeInsetsDirectional.only(end: 12),
                 ),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -94,17 +94,21 @@ class _TaskItemState extends State<TaskItem> {
                     ),
                     Text(
                       widget.task.description,
-                      style: theme.textTheme.titleSmall,
+                      style: TextStyle(
+                        color: settingsProvider.isDark
+                            ? AppTheme.white
+                            : AppTheme.black,
+                      ),
                     ),
                   ],
                 ),
-                Spacer(),
+                const Spacer(),
                 InkWell(
                   onTap: () {
                     changeStatusTask();
                   },
                   child: widget.task.isDone
-                      ? Center(
+                      ? const Center(
                           child: Text(
                             'Done!',
                             style: TextStyle(
@@ -120,7 +124,7 @@ class _TaskItemState extends State<TaskItem> {
                           decoration: BoxDecoration(
                               color: theme.primaryColor,
                               borderRadius: BorderRadius.circular(10)),
-                          child: Icon(
+                          child: const Icon(
                             Icons.check,
                             color: AppTheme.white,
                             size: 32,

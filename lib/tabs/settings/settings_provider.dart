@@ -6,16 +6,15 @@ class SettingsProvider with ChangeNotifier {
   SharedPreferences? prefs;
 
   bool get isDark => themeMode == ThemeMode.dark;
-  SettingsProvider() {
-    loadSettings();
-  }
 
-  void loadSettings() async {
+  Future<void> loadSettings() async {
     final prefs = await SharedPreferences.getInstance();
-    themeMode = prefs.getBool('isDarkMode') ?? false ? ThemeMode.dark : ThemeMode.light;
+    themeMode =
+        prefs.getBool('isDarkMode') ?? false ? ThemeMode.dark : ThemeMode.light;
     notifyListeners();
   }
-  Future <void> changeThemeMode(ThemeMode selectedThemeMode)async {
+
+  Future<void> changeThemeMode(ThemeMode selectedThemeMode) async {
     themeMode = selectedThemeMode;
     final prefs = await SharedPreferences.getInstance();
     prefs.setBool('isDarkMode', isDark);

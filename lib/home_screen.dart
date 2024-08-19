@@ -7,7 +7,9 @@ import 'package:todo/tabs/tasks/add_task_bottom_sheet.dart';
 import 'package:todo/tabs/tasks/tasks_tab.dart';
 
 class HomeScreen extends StatefulWidget {
-  static const String routename = '/';
+  static const String routename = '/home';
+
+  const HomeScreen({super.key});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -16,8 +18,8 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int currentTabIndex = 0;
   List<Widget> tabs = [
-    TasksTab(),
-    SettingsTab(),
+    const TasksTab(),
+    const SettingsTab(),
   ];
 
   @override
@@ -25,13 +27,16 @@ class _HomeScreenState extends State<HomeScreen> {
     TextStyle? titleMediumStyle = Theme.of(context).textTheme.titleMedium;
     SettingsProvider settingsProvider = Provider.of(context);
     return Scaffold(
+      backgroundColor: settingsProvider.isDark
+          ? AppTheme.backGroundDark
+          : AppTheme.backGroundLight,
       appBar: AppBar(
         backgroundColor: AppTheme.primary,
         centerTitle: true,
         title: Text(
           'TO DO List',
           style: settingsProvider.isDark
-              ? titleMediumStyle?.copyWith(         
+              ? titleMediumStyle?.copyWith(
                   fontSize: 32,
                   fontWeight: FontWeight.bold,
                   color: AppTheme.black,
@@ -46,7 +51,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       body: tabs[currentTabIndex],
       bottomNavigationBar: BottomAppBar(
-        shape: CircularNotchedRectangle(),
+        shape: const CircularNotchedRectangle(),
         notchMargin: 10,
         padding: EdgeInsets.zero,
         clipBehavior: Clip.antiAliasWithSaveLayer,
@@ -57,7 +62,7 @@ class _HomeScreenState extends State<HomeScreen> {
               currentTabIndex = index;
             });
           },
-          items: [
+          items: const [
             BottomNavigationBarItem(
               label: 'Tasks',
               icon: Icon(
@@ -77,9 +82,9 @@ class _HomeScreenState extends State<HomeScreen> {
       floatingActionButton: FloatingActionButton(
         onPressed: () => showModalBottomSheet(
           context: context,
-          builder: (context) => AddTaskBottomSheet(),
+          builder: (context) => const AddTaskBottomSheet(),
         ),
-        child: Icon(
+        child: const Icon(
           Icons.add,
           size: 32,
         ),

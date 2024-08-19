@@ -27,7 +27,7 @@ class FirebaseFunctions {
       DocumentReference taskSoc = tasksCollection.doc(task.id);
       await taskSoc.update(task.toJson());
     } catch (e) {
-      print('error$e');
+      // print('error$e');
     }
   }
 
