@@ -3,6 +3,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:todo/app_theme.dart';
+import 'package:todo/auth/user_provider.dart';
 import 'package:todo/models/task_model.dart';
 import 'package:todo/tabs/settings/settings_provider.dart';
 import 'package:todo/tabs/tasks/default_elevated_button.dart';
@@ -26,10 +27,20 @@ class _EditTaskScreenState extends State<EditTaskScreen> {
   DateFormat dateFormat = DateFormat('dd/MM/yyyy');
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   TaskModel? task;
+  bool isTrue = true;
+
   @override
   Widget build(BuildContext context) {
     TextStyle? titleMediumStyle = Theme.of(context).textTheme.titleMedium;
     SettingsProvider settingsProvider = Provider.of(context);
+    task = ModalRoute.of(context)!.settings.arguments as TaskModel;
+
+    if (isTrue) {
+      titleController.text = task!.title;
+      descriptionController.text = task!.description;
+      selectedDate = task!.date;
+      isTrue = false;
+    }
 
     return Scaffold(
       appBar: AppBar(
@@ -159,19 +170,20 @@ class _EditTaskScreenState extends State<EditTaskScreen> {
     );
   }
 
-  void editTask() {
-    FirebaseFunctions.editTaskToFireStore(
-      TaskModel(
-        title: titleController.text,
-        description: descriptionController.text,
-        date: selectedDate,
-        id: task!.id,
-      ),
-    ).timeout(
-      const Duration(microseconds: 500),
-      onTimeout: () {
+  Future<void> editTask() async {
+    final userId =
+        Provider.of<UserProvider>(context, listen: false).currentUser!.id;
+
+    task!.title = titleController.text;
+    task!.description = descriptionController.text;
+    task!.date = selectedDate;
+    await FirebaseFunctions.editTaskToFireStore(
+      task!,
+      userId,
+    ).then(
+      (_) {
         Navigator.of(context).pop();
-        Provider.of<TasksProvider>(context, listen: false).getTasks();
+        Provider.of<TasksProvider>(context, listen: false).getTasks(userId);
         Fluttertoast.showToast(
             msg: "Task Edited Successfully",
             toastLength: Toast.LENGTH_LONG,

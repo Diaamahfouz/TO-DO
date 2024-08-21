@@ -3,6 +3,7 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:todo/app_theme.dart';
+import 'package:todo/auth/user_provider.dart';
 import 'package:todo/models/task_model.dart';
 import 'package:todo/tabs/settings/settings_provider.dart';
 import 'package:todo/tabs/tasks/edit_task_screen.dart';
@@ -29,16 +30,18 @@ class _TaskItemState extends State<TaskItem> {
         key: const ValueKey(0),
         startActionPane: ActionPane(
           motion: const ScrollMotion(),
-          dismissible: DismissiblePane(onDismissed: () {}),
           children: [
             SlidableAction(
-              onPressed: (context) {
-                FirebaseFunctions.deleteTaskFromFirestore(widget.task.id)
-                    .timeout(
-                  const Duration(microseconds: 500),
-                  onTimeout: () {
+              onPressed: (_) {
+                final userId = Provider.of<UserProvider>(context, listen: false)
+                    .currentUser!
+                    .id;
+                FirebaseFunctions.deleteTaskFromFirestore(
+                        widget.task.id, userId)
+                    .then(
+                  (_) {
                     Provider.of<TasksProvider>(context, listen: false)
-                        .getTasks();
+                        .getTasks(userId);
                     Fluttertoast.showToast(
                         msg: "TAsk Deleted",
                         toastLength: Toast.LENGTH_LONG,
@@ -67,8 +70,8 @@ class _TaskItemState extends State<TaskItem> {
         ),
         child: GestureDetector(
           onTap: () {
-            Navigator.of(context).pushNamed(EditTaskScreen.routename);
-            setState(() {});
+            Navigator.of(context)
+                .pushNamed(EditTaskScreen.routename, arguments: widget.task);
           },
           child: Container(
             padding: const EdgeInsets.all(20),
@@ -139,8 +142,14 @@ class _TaskItemState extends State<TaskItem> {
     );
   }
 
-  void changeStatusTask() {
+  Future<void> changeStatusTask() async {
     widget.task.isDone = !widget.task.isDone;
     setState(() {});
+    final userId =
+        Provider.of<UserProvider>(context, listen: false).currentUser!.id;
+
+    await FirebaseFunctions.editTaskToFireStore(widget.task, userId);
+    // ignore: use_build_context_synchronously
+    Provider.of<TasksProvider>(context, listen: false).getTasks(userId);
   }
 }

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:todo/app_theme.dart';
+import 'package:todo/tabs/settings/settings_provider.dart';
 
 class DefaultTextFormField extends StatefulWidget {
   const DefaultTextFormField(
@@ -26,6 +28,10 @@ class _DefaultTextFormFieldState extends State<DefaultTextFormField> {
     TextStyle? titleMediumStyle = Theme.of(context).textTheme.titleMedium;
     return TextFormField(
       controller: widget.controller,
+      style: titleMediumStyle!.copyWith(
+        fontWeight: FontWeight.w400,
+        fontSize: 18,
+      ),
       decoration: InputDecoration(
         hintText: widget.hintText,
         suffixIcon: widget.isPassword
@@ -38,6 +44,10 @@ class _DefaultTextFormFieldState extends State<DefaultTextFormField> {
                   isObscure
                       ? Icons.visibility_outlined
                       : Icons.visibility_off_outlined,
+                  size: 24,
+                  color: SettingsProvider().isDark
+                      ? AppTheme.white
+                      : AppTheme.black,
                 ),
               )
             : null,

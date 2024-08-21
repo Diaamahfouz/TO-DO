@@ -1,12 +1,17 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:provider/provider.dart';
 import 'package:todo/app_theme.dart';
 
 import 'package:todo/auth/register_screen.dart';
+import 'package:todo/auth/user_provider.dart';
 import 'package:todo/home_screen.dart';
 import 'package:todo/tabs/settings/settings_provider.dart';
 
 import 'package:todo/tabs/tasks/default_elevated_button.dart';
 import 'package:todo/tabs/tasks/default_text_form_field.dart';
+import 'package:todo/tabs/tasks/firebase_functions.dart';
 
 class LoginScreen extends StatefulWidget {
   static const String routeName = '/login';
@@ -97,8 +102,27 @@ class _RegisterScreenState extends State<LoginScreen> {
 
   void login() {
     if (formKey.currentState!.validate()) {
-      // Login Logic
-      Navigator.of(context).pushReplacementNamed(HomeScreen.routename);
+      FirebaseFunctions.login(
+              email: emailController.text, password: passwordController.text)
+          .then((user) {
+        Provider.of<UserProvider>(context, listen: false).updateUser(user);
+        Navigator.of(context).pushReplacementNamed(HomeScreen.routename);
+      }).catchError(
+        (error) {
+          String? message;
+          if (error is FirebaseAuthException) {
+            message = error.message;
+          }
+          Fluttertoast.showToast(
+              msg: message ?? "Something Went Wrong!",
+              toastLength: Toast.LENGTH_LONG,
+              gravity: ToastGravity.CENTER,
+              timeInSecForIosWeb: 5,
+              backgroundColor: AppTheme.red,
+              textColor: Colors.white,
+              fontSize: 16.0);
+        },
+      );
     }
   }
 }

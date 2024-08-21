@@ -3,6 +3,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:todo/app_theme.dart';
+import 'package:todo/auth/user_provider.dart';
 import 'package:todo/models/task_model.dart';
 import 'package:todo/tabs/settings/settings_provider.dart';
 import 'package:todo/tabs/tasks/default_elevated_button.dart';
@@ -116,17 +117,17 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
   }
 
   void addTask() {
+    final userId = Provider.of<UserProvider>(context,listen: false).currentUser!.id;
     FirebaseFunctions.addTaskToFireStore(
       TaskModel(
         title: titleController.text,
         description: descriptionController.text,
         date: selectedDate,
       ),
-    ).timeout(
-      const Duration(microseconds: 500),
-      onTimeout: () {
+      userId,
+    ).then( (_) {
         Navigator.of(context).pop();
-        Provider.of<TasksProvider>(context, listen: false).getTasks();
+        Provider.of<TasksProvider>(context, listen: false).getTasks(userId);
         Fluttertoast.showToast(
             msg: "Task Added Successfully",
             toastLength: Toast.LENGTH_LONG,

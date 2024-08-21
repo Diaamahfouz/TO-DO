@@ -6,9 +6,9 @@ class TasksProvider with ChangeNotifier {
   List<TaskModel> tasks = [];
   DateTime selectedDate = DateTime.now();
 
-  Future<void> getTasks() async {
+  Future<void> getTasks(String userId) async {
     List<TaskModel> allTasks =
-        await FirebaseFunctions.getAllTasksFromFirestore();
+        await FirebaseFunctions.getAllTasksFromFirestore(userId);
     tasks = allTasks
         .where((task) =>
             task.date.day == selectedDate.day &&

@@ -2,18 +2,30 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:todo/app_theme.dart';
+import 'package:todo/auth/user_provider.dart';
 import 'package:todo/tabs/settings/settings_provider.dart';
 import 'package:todo/tabs/tasks/task_item.dart';
 import 'package:easy_date_timeline/easy_date_timeline.dart';
 import 'package:todo/tabs/tasks/tasks_provider.dart';
 
-class TasksTab extends StatelessWidget {
+class TasksTab extends StatefulWidget {
   const TasksTab({super.key});
 
+  @override
+  State<TasksTab> createState() => _TasksTabState();
+}
+
+class _TasksTabState extends State<TasksTab> {
+  bool shouldGetTasks = true;
   @override
   Widget build(BuildContext context) {
     TasksProvider tasksProvider = Provider.of<TasksProvider>(context);
     SettingsProvider settingsProvider = Provider.of(context);
+    if (shouldGetTasks) {
+      final userId = Provider.of<UserProvider>(context).currentUser!.id;
+      tasksProvider.getTasks(userId);
+      shouldGetTasks = false;
+    }
 
     return Column(children: [
       Stack(
@@ -32,7 +44,11 @@ class TasksTab extends StatelessWidget {
             showTimelineHeader: false,
             onDateChange: (selectedDate) {
               tasksProvider.changeSelecteDate(selectedDate);
-              tasksProvider.getTasks();
+              tasksProvider.getTasks(
+                Provider.of<UserProvider>(context, listen: false)
+                    .currentUser!
+                    .id,
+              );
             },
             dayProps: EasyDayProps(
               dayStructure: DayStructure.dayStrDayNum,
