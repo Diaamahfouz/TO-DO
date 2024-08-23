@@ -73,6 +73,7 @@ class _TaskItemState extends State<TaskItem> {
           onTap: () {
             Navigator.of(context)
                 .pushNamed(EditTaskScreen.routename, arguments: widget.task);
+
           },
           child: Container(
             padding: const EdgeInsets.all(20),

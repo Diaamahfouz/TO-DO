@@ -17,6 +17,8 @@
     "createAccount" :"Create Account",
     "alreadyHaveAccount":"Already Have An Account ?",
     "delte":"Delete",
-    "isDone":"Done !"
+    "isDone":"Done !",
+    "editTask":"Edit Task",
+    "saveChanges":"Save Changes"
 
 }

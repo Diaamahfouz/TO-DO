@@ -10,6 +10,7 @@ import 'package:todo/tabs/tasks/default_elevated_button.dart';
 import 'package:todo/tabs/tasks/default_text_form_field.dart';
 import 'package:todo/tabs/tasks/firebase_functions.dart';
 import 'package:todo/tabs/tasks/tasks_provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class EditTaskScreen extends StatefulWidget {
   static const String routename = '/editTAskScreen';
@@ -49,7 +50,7 @@ class _EditTaskScreenState extends State<EditTaskScreen> {
         iconTheme: IconThemeData(
             color: settingsProvider.isDark ? AppTheme.black : AppTheme.white),
         title: Text(
-          'TO DO List',
+          AppLocalizations.of(context)!.todoList,
           style: settingsProvider.isDark
               ? titleMediumStyle?.copyWith(
                   fontSize: 32,
@@ -88,7 +89,7 @@ class _EditTaskScreenState extends State<EditTaskScreen> {
                       height: 20,
                     ),
                     Text(
-                      'Edit Task',
+                      AppLocalizations.of(context)!.editTask,
                       style: titleMediumStyle,
                     ),
                     const SizedBox(
@@ -96,7 +97,7 @@ class _EditTaskScreenState extends State<EditTaskScreen> {
                     ),
                     DefaultTextFormField(
                       controller: titleController,
-                      hintText: 'Thie is Title',
+                      hintText: AppLocalizations.of(context)!.taskTitle,
                       maxLines: 1,
                       validator: (value) {
                         if (value == null || value.trim().isEmpty) {
@@ -110,8 +111,8 @@ class _EditTaskScreenState extends State<EditTaskScreen> {
                     ),
                     DefaultTextFormField(
                       controller: descriptionController,
-                      hintText: 'Task Description',
-                      maxLines: 5,
+                      hintText: AppLocalizations.of(context)!.taskDescription,
+                      maxLines: 3,
                       validator: (value) {
                         if (value == null || value.trim().isEmpty) {
                           return 'Description can not be empty !';
@@ -123,7 +124,7 @@ class _EditTaskScreenState extends State<EditTaskScreen> {
                       height: 35,
                     ),
                     Text(
-                      'Select Date',
+                      AppLocalizations.of(context)!.date,
                       style: titleMediumStyle,
                     ),
                     const SizedBox(
@@ -154,7 +155,7 @@ class _EditTaskScreenState extends State<EditTaskScreen> {
                       height: 70,
                     ),
                     DefaultElevatedButton(
-                        label: 'Save Changes',
+                        label: AppLocalizations.of(context)!.saveChanges,
                         onPressed: () {
                           if (formKey.currentState!.validate()) {
                             editTask();
