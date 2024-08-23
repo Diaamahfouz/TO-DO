@@ -1,0 +1,22 @@
+{
+    "todoList": "To Do List",
+    "settings" : "Settings",
+    "language" : "Language",
+    "state" : "Dark Mode",
+    "logout" : "Logout", 
+    "addTask":"Add New Task",
+    "taskTitle":"Enter Task Title",
+    "taskDescription":"Enter Task Description",
+    "date":"Select Date",
+    "submit":"Submit",
+    "email":"Email",
+    "password":"Password",
+    "login":"Log in",
+    "dontHaveAccount":"Don't Have An Account !",
+    "name":"Name",
+    "createAccount" :"Create Account",
+    "alreadyHaveAccount":"Already Have An Account ?",
+    "delte":"Delete",
+    "isDone":"Done !"
+
+}

@@ -5,6 +5,7 @@ import 'package:todo/tabs/settings/settings_provider.dart';
 import 'package:todo/tabs/settings/settings_tab.dart';
 import 'package:todo/tabs/tasks/add_task_bottom_sheet.dart';
 import 'package:todo/tabs/tasks/tasks_tab.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HomeScreen extends StatefulWidget {
   static const String routename = '/home';
@@ -34,7 +35,7 @@ class _HomeScreenState extends State<HomeScreen> {
         backgroundColor: AppTheme.primary,
         centerTitle: true,
         title: Text(
-          'TO DO List',
+          AppLocalizations.of(context)!.todoList,
           style: settingsProvider.isDark
               ? titleMediumStyle?.copyWith(
                   fontSize: 32,
@@ -81,6 +82,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => showModalBottomSheet(
+          isScrollControlled: true,
           context: context,
           builder: (context) => const AddTaskBottomSheet(),
         ),

@@ -10,6 +10,7 @@ import 'package:todo/tabs/settings/settings_provider.dart';
 import 'package:todo/tabs/tasks/default_elevated_button.dart';
 import 'package:todo/tabs/tasks/default_text_form_field.dart';
 import 'package:todo/tabs/tasks/firebase_functions.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class RegisterScreen extends StatefulWidget {
   static const String routeName = '/register';
@@ -34,9 +35,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
       appBar: AppBar(
         centerTitle: true,
         backgroundColor: Colors.transparent,
-        title: const Text(
-          'Create Account',
-          style: TextStyle(
+        title:  Text(
+          AppLocalizations.of(context)!.createAccount,
+          style: const TextStyle(
             color: AppTheme.primary,
             fontSize: 28,
             fontWeight: FontWeight.bold,
@@ -52,7 +53,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
             children: [
               DefaultTextFormField(
                 controller: nameController,
-                hintText: 'Name',
+                hintText: AppLocalizations.of(context)!.name,
                 validator: (value) {
                   if (value == null || value.trim().length < 3) {
                     return 'Name can not be less than 3 characters';
@@ -65,7 +66,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               ),
               DefaultTextFormField(
                 controller: emailController,
-                hintText: 'Email',
+                hintText: AppLocalizations.of(context)!.email,
                 validator: (value) {
                   if (value == null || value.trim().length < 5) {
                     return 'Email can not be less than 5 characters';
@@ -78,7 +79,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               ),
               DefaultTextFormField(
                 controller: passwordController,
-                hintText: 'Password',
+                hintText: AppLocalizations.of(context)!.password,
                 validator: (value) {
                   if (value == null || value.trim().length < 8) {
                     return 'Name can not be less than 8 characters';
@@ -91,7 +92,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 height: 32,
               ),
               DefaultElevatedButton(
-                label: 'Create Account',
+                label: AppLocalizations.of(context)!.createAccount,
                 onPressed: () {
                   register();
                 },
@@ -101,7 +102,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   Navigator.of(context)
                       .pushReplacementNamed(LoginScreen.routeName);
                 },
-                child: const Text('Already have an account ?'),
+                child:  Text(AppLocalizations.of(context)!.alreadyHaveAccount),
               )
             ],
           ),

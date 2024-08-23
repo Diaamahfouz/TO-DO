@@ -6,6 +6,7 @@ import 'package:todo/auth/user_provider.dart';
 import 'package:todo/tabs/settings/settings_provider.dart';
 import 'package:todo/tabs/tasks/firebase_functions.dart';
 import 'package:todo/tabs/tasks/tasks_provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SettingsTab extends StatelessWidget {
   const SettingsTab({super.key});
@@ -28,7 +29,7 @@ class SettingsTab extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    'Settings',
+                    AppLocalizations.of(context)!.settings,
                     style: TextStyle(
                       color: settingsProvider.isDark
                           ? AppTheme.white
@@ -42,7 +43,7 @@ class SettingsTab extends StatelessWidget {
             ],
           ),
           const SizedBox(
-            height: 35,
+            height: 36,
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -52,7 +53,7 @@ class SettingsTab extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'Dark Mode',
+                      AppLocalizations.of(context)!.state,
                       style: TextStyle(
                         color: settingsProvider.isDark
                             ? AppTheme.white
@@ -73,13 +74,70 @@ class SettingsTab extends StatelessWidget {
                   ],
                 ),
                 const SizedBox(
-                  height: 16,
+                  height: 36,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'Logout',
+                      AppLocalizations.of(context)!.language,
+                      style: TextStyle(
+                        color: settingsProvider.isDark
+                            ? AppTheme.white
+                            : AppTheme.black,
+                        fontSize: 28,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    DropdownButtonHideUnderline(
+                      child: DropdownButton<String>(
+                        value: settingsProvider.language,
+                        items: [
+                          DropdownMenuItem(
+                            value: 'en',
+                            child: settingsProvider.isDark
+                                ? const Text(
+                                    'English',
+                                    style: TextStyle(color: AppTheme.grey),
+                                  )
+                                : const Text(
+                                    'English',
+                                    style: TextStyle(color: AppTheme.black),
+                                  ),
+                          ),
+                          DropdownMenuItem(
+                            value: 'ar',
+                            child: settingsProvider.isDark
+                                ? const Text(
+                                    'العربية',
+                                    style: TextStyle(color: AppTheme.grey),
+                                  )
+                                : const Text(
+                                    'العربية',
+                                    style: TextStyle(color: AppTheme.black),
+                                  ),
+                          )
+                        ],
+                        onChanged: (selectedLanguage) {
+                          if (selectedLanguage == null) return;
+                          settingsProvider.changeLanguage(selectedLanguage);
+                        },
+                        dropdownColor: settingsProvider.isDark
+                            ? AppTheme.backGroundDark
+                            : AppTheme.backGroundLight,
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                    )
+                  ],
+                ),
+                const SizedBox(
+                  height: 36,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      AppLocalizations.of(context)!.logout,
                       style: TextStyle(
                         color: settingsProvider.isDark
                             ? AppTheme.white

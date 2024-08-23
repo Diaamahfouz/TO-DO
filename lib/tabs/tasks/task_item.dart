@@ -9,6 +9,7 @@ import 'package:todo/tabs/settings/settings_provider.dart';
 import 'package:todo/tabs/tasks/edit_task_screen.dart';
 import 'package:todo/tabs/tasks/firebase_functions.dart';
 import 'package:todo/tabs/tasks/tasks_provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class TaskItem extends StatefulWidget {
   const TaskItem(this.task, {super.key});
@@ -63,7 +64,7 @@ class _TaskItemState extends State<TaskItem> {
               backgroundColor: AppTheme.red,
               foregroundColor: AppTheme.white,
               icon: Icons.delete,
-              label: 'Delete',
+              label: AppLocalizations.of(context)!.delte,
               borderRadius: BorderRadius.circular(15),
             ),
           ],
@@ -111,10 +112,10 @@ class _TaskItemState extends State<TaskItem> {
                     changeStatusTask();
                   },
                   child: widget.task.isDone
-                      ? const Center(
+                      ? Center(
                           child: Text(
-                            'Done!',
-                            style: TextStyle(
+                            AppLocalizations.of(context)!.isDone,
+                            style: const TextStyle(
                               color: AppTheme.green,
                               fontSize: 22,
                               fontWeight: FontWeight.bold,

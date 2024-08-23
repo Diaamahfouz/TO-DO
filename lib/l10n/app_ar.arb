@@ -1,0 +1,22 @@
+{
+    "todoList": "قائمة المهام اليومية ",
+    "settings" : "الاعدادات",
+    "quran" : "المصحف",
+    "language" : "اللغة",
+    "state" : "الوضع الداكن",
+    "logout" : "تسجيل الخروج",
+    "addTask":"أضف مهمة جديدة",
+    "taskTitle":"عنوان المهمة",
+    "taskDescription":"وصف المهمة",
+    "date":"تحديد التاريخ",
+    "submit":"حفظ",
+    "email":"الايميل",
+    "password":"الرقم السرى",
+    "login":"تسجيل الدخول",
+    "dontHaveAccount":"ليس لدى حساب !",
+    "name":"الاسم",
+    "createAccount" :"انشاء حساب",
+    "alreadyHaveAccount":" لدى حساب بالقعل ؟",
+    "delte":"حذف",
+    "isDone":"تمت"
+}
