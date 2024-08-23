@@ -78,7 +78,7 @@ class _EditTaskScreenState extends State<EditTaskScreen> {
               borderRadius: BorderRadius.circular(20),
               color: settingsProvider.isDark ? AppTheme.black : AppTheme.white,
             ),
-            height: MediaQuery.of(context).size.height * 0.7,
+            height: MediaQuery.of(context).size.height * 0.6,
             child: Form(
               key: formKey,
               child: Padding(
@@ -115,7 +115,7 @@ class _EditTaskScreenState extends State<EditTaskScreen> {
                       maxLines: 3,
                       validator: (value) {
                         if (value == null || value.trim().isEmpty) {
-                          return  AppLocalizations.of(context)!.descriptionval;
+                          return AppLocalizations.of(context)!.descriptionval;
                         }
                         return null;
                       },
@@ -152,7 +152,7 @@ class _EditTaskScreenState extends State<EditTaskScreen> {
                       ),
                     ),
                     const SizedBox(
-                      height: 70,
+                      height: 10,
                     ),
                     DefaultElevatedButton(
                         label: AppLocalizations.of(context)!.saveChanges,
