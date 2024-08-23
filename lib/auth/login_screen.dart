@@ -59,7 +59,7 @@ class _RegisterScreenState extends State<LoginScreen> {
                 hintText: AppLocalizations.of(context)!.email,
                 validator: (value) {
                   if (value == null || value.trim().length < 5) {
-                    return 'Email can not be less than 5 characters';
+                    return AppLocalizations.of(context)!.emailval;
                   }
                   return null;
                 },
@@ -72,7 +72,7 @@ class _RegisterScreenState extends State<LoginScreen> {
                 hintText: AppLocalizations.of(context)!.password,
                 validator: (value) {
                   if (value == null || value.trim().length < 8) {
-                    return 'Name can not be less than 8 characters';
+                    return AppLocalizations.of(context)!.paswwordval;
                   }
                   return null;
                 },
@@ -92,7 +92,7 @@ class _RegisterScreenState extends State<LoginScreen> {
                   Navigator.of(context)
                       .pushReplacementNamed(RegisterScreen.routeName);
                 },
-                child:  Text(AppLocalizations.of(context)!.dontHaveAccount),
+                child: Text(AppLocalizations.of(context)!.dontHaveAccount),
               )
             ],
           ),

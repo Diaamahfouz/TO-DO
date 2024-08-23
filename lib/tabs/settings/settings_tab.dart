@@ -123,9 +123,9 @@ class SettingsTab extends StatelessWidget {
                           settingsProvider.changeLanguage(selectedLanguage);
                         },
                         dropdownColor: settingsProvider.isDark
-                            ? AppTheme.backGroundDark
-                            : AppTheme.backGroundLight,
-                        borderRadius: BorderRadius.circular(16),
+                            ? AppTheme.black
+                            : AppTheme.white,
+                        borderRadius: BorderRadius.circular(22),
                       ),
                     )
                   ],

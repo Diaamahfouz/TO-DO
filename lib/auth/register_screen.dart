@@ -35,7 +35,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       appBar: AppBar(
         centerTitle: true,
         backgroundColor: Colors.transparent,
-        title:  Text(
+        title: Text(
           AppLocalizations.of(context)!.createAccount,
           style: const TextStyle(
             color: AppTheme.primary,
@@ -56,7 +56,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 hintText: AppLocalizations.of(context)!.name,
                 validator: (value) {
                   if (value == null || value.trim().length < 3) {
-                    return 'Name can not be less than 3 characters';
+                    return AppLocalizations.of(context)!.nameval;
                   }
                   return null;
                 },
@@ -69,7 +69,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 hintText: AppLocalizations.of(context)!.email,
                 validator: (value) {
                   if (value == null || value.trim().length < 5) {
-                    return 'Email can not be less than 5 characters';
+                    return AppLocalizations.of(context)!.emailval;
                   }
                   return null;
                 },
@@ -82,7 +82,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 hintText: AppLocalizations.of(context)!.password,
                 validator: (value) {
                   if (value == null || value.trim().length < 8) {
-                    return 'Name can not be less than 8 characters';
+                    return AppLocalizations.of(context)!.paswwordval;
                   }
                   return null;
                 },
@@ -102,7 +102,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   Navigator.of(context)
                       .pushReplacementNamed(LoginScreen.routeName);
                 },
-                child:  Text(AppLocalizations.of(context)!.alreadyHaveAccount),
+                child: Text(AppLocalizations.of(context)!.alreadyHaveAccount),
               )
             ],
           ),
@@ -118,7 +118,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               email: emailController.text,
               password: passwordController.text)
           .then((user) {
-        Provider.of<UserProvider>(context,listen: false).updateUser(user);
+        Provider.of<UserProvider>(context, listen: false).updateUser(user);
         Navigator.of(context).pushReplacementNamed(HomeScreen.routename);
       }).catchError(
         (error) {

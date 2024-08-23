@@ -101,7 +101,7 @@ class _EditTaskScreenState extends State<EditTaskScreen> {
                       maxLines: 1,
                       validator: (value) {
                         if (value == null || value.trim().isEmpty) {
-                          return 'Title can not be empty !';
+                          return AppLocalizations.of(context)!.titleval;
                         }
                         return null;
                       },
@@ -115,7 +115,7 @@ class _EditTaskScreenState extends State<EditTaskScreen> {
                       maxLines: 3,
                       validator: (value) {
                         if (value == null || value.trim().isEmpty) {
-                          return 'Description can not be empty !';
+                          return  AppLocalizations.of(context)!.descriptionval;
                         }
                         return null;
                       },
@@ -186,7 +186,7 @@ class _EditTaskScreenState extends State<EditTaskScreen> {
         Navigator.of(context).pop();
         Provider.of<TasksProvider>(context, listen: false).getTasks(userId);
         Fluttertoast.showToast(
-            msg: "Task Edited Successfully",
+            msg: AppLocalizations.of(context)!.taskEdited,
             toastLength: Toast.LENGTH_LONG,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 5,
@@ -196,7 +196,7 @@ class _EditTaskScreenState extends State<EditTaskScreen> {
       },
     ).catchError((error) {
       Fluttertoast.showToast(
-          msg: "Something Went Wrong!",
+          msg: AppLocalizations.of(context)!.somethingError,
           toastLength: Toast.LENGTH_LONG,
           gravity: ToastGravity.CENTER,
           timeInSecForIosWeb: 5,

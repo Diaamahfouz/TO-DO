@@ -44,7 +44,7 @@ class _TaskItemState extends State<TaskItem> {
                     Provider.of<TasksProvider>(context, listen: false)
                         .getTasks(userId);
                     Fluttertoast.showToast(
-                        msg: "TAsk Deleted",
+                        msg: AppLocalizations.of(context)!.taskdeleted,
                         toastLength: Toast.LENGTH_LONG,
                         timeInSecForIosWeb: 5,
                         backgroundColor: AppTheme.red,
@@ -53,7 +53,7 @@ class _TaskItemState extends State<TaskItem> {
                   },
                 ).catchError((error) {
                   Fluttertoast.showToast(
-                      msg: "Deleted Error ",
+                      msg: AppLocalizations.of(context)!.somethingError,
                       toastLength: Toast.LENGTH_LONG,
                       timeInSecForIosWeb: 5,
                       backgroundColor: AppTheme.red,
@@ -73,7 +73,6 @@ class _TaskItemState extends State<TaskItem> {
           onTap: () {
             Navigator.of(context)
                 .pushNamed(EditTaskScreen.routename, arguments: widget.task);
-
           },
           child: Container(
             padding: const EdgeInsets.all(20),
